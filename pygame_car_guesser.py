@@ -22,34 +22,21 @@ def get_random_image_file():
 	car_f = random.choice([x for x in os.listdir(car_dir) if os.path.isfile(os.path.join(car_dir, x))])
 	return car_dir + "/" + car_f
 
-def crop_image(img, orig_x, orig_y):
+def crop(img):
 	"""
 	Randomly crop the image
 	Param orig_x, x coord of original image
 	Param orig_y, y coord of original image
 	Return cropped image
 	"""
-	# left = random.randint(0, img.get_width() - CROP_WIDTH)
-	# top = img.get_height() / 4
-	# right = left + CROP_WIDTH
-	# bottom = 3 * img.get_height() / 4
-	# cropped_img = img.crop((left, top, right, bottom))
-	# return pygame.image.load(cropped_img).convert()
+	# x and y coordinates in relation to the surface (regardless of surface location on screen)
+	x = random.randint(0, int(img.get_width() / 2))
+	y = random.randint(0, int(img.get_height() / 2))
+	width = img.get_width() / 2
+	height = img.get_height() / 2
 
-	x = random.randint(orig_x, orig_x + img.get_width() - CROP_WIDTH)
-	y = (orig_y + img.get_height()) / 4
-	width = x + CROP_WIDTH
-	height = 3 * y
-	return img.subsurface((x, y, width, height))
-
-
-def display_image(img, game_display, img_x, img_y):
-	"""
-	Displays image
-	Parameter img image
-	"""
-	game_display.blit(img, (img_x, img_y))
-	pygame.display.flip()
+	cropped_region = (x, y, width, height)
+	return cropped_region
 
 def run_game():
 	"""
@@ -73,14 +60,19 @@ def run_game():
 
 		game_display.fill(WHITE)
 
-		# Display image
+		# Load image
 		img_path = get_random_image_file()
 		img = pygame.image.load(img_path).convert()
 		img_x = width / 2 - img.get_width() / 2
 		img_y = height / 2 - img.get_height()
 
-		cropped_img = crop_image(img, img_x, img_y)
-		display_image(img, game_display, img_x, img_y)
+		cropped_region = crop(img)
+
+		cropped_img = img.subsurface(cropped_region)
+
+		# Display image
+		game_display.blit(cropped_img, (img_x, img_y))
+		pygame.display.flip()
 
 		pygame.display.update()
 		clock.tick(FPS)
