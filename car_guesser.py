@@ -24,10 +24,15 @@ while True:
 	car_img = Image.open(car_path)
 
 	# Randomly crop the image
+	# width, height = car_img.size
+	# left = random.randint(0, width - CROP_WIDTH)
+	# top = height / 4
+	# right = left + CROP_WIDTH
+	# bottom = 3 * height / 4
 	width, height = car_img.size
-	left = random.randint(0, width - CROP_WIDTH)
+	left = random.randint(0, width / 2)
 	top = height / 4
-	right = left + CROP_WIDTH
+	right = left + width / 2
 	bottom = 3 * height / 4
 
 	cropped_img = car_img.crop((left, top, right, bottom))
