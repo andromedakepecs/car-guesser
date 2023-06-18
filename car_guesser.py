@@ -1,4 +1,4 @@
-import os, random
+import os, random, time
 from PIL import Image
 
 CROP_WIDTH = 160
@@ -83,13 +83,17 @@ while True:
 		else:
 			print("Incorrect :( The correct answer is", car_f)
 			continue
+	print("Here's the full image:")
+	car_img.show()
+	time.sleep(2)
+	print("Next car!")
 
-print("You guessed", brands_guessed_one_try, "in one try! You're too cool!")
-print("You guessed", brands_guessed_two_try, "in two tries! Lame!")
-print("You guessed", models_guessed_one_try, "in one try! Wow!")
-print("You guessed", models_guessed_two_try, "in two tries! Still pretty cool!")
-print("You guessed", years_guessed_one_try, "in one try! Oh my god you are so cool!")
-print("You guessed", years_guessed_two_try, "in two tries! Still impressive!")
+print("You guessed", brands_guessed_one_try, "in one try!")
+print("You guessed", brands_guessed_two_try, "in two tries!")
+print("You guessed", models_guessed_one_try, "in one try!")
+print("You guessed", models_guessed_two_try, "in two tries!")
+print("You guessed", years_guessed_one_try, "in one try!")
+print("You guessed", years_guessed_two_try, "in two tries!")
 
 
 	# if answer == too difficult ask would you like to remove this image from the quiz set
